@@ -1,0 +1,20 @@
+[project]
+name = "daily-briefing"
+version = "0.1.0"
+description = "AWS Lambda function that generates personalized daily briefings using Claude Opus 4.5"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.76.0",
+    "aws-cdk-lib>=2.234.1",
+    "black>=25.12.0",
+    "boto3>=1.42.27",
+    "constructs>=10.4.4",
+    "flake8>=7.3.0",
+    "moto>=5.1.19",
+    "mypy>=1.19.1",
+    "pylint>=4.0.4",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "pytest-mock>=3.15.1",
+]
