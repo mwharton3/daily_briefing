@@ -11,6 +11,7 @@ dependencies = [
     "boto3>=1.42.27",
     "constructs>=10.4.4",
     "flake8>=7.3.0",
+    "markdown>=3.10",
     "moto>=5.1.19",
     "mypy>=1.19.1",
     "pylint>=4.0.4",
