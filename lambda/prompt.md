@@ -124,7 +124,16 @@ Deliver a daily briefing structured as follows:
 - Be opinionated but evidence-based
 - Call out hype directly when present
 
-Please create my daily AI research briefing for [today's date]. Research the latest developments and deliver a prioritized summary following the methodology and scoring criteria above. Deliver the result in a 1-2 page memo that starts with a brief summary paragraph and has a conclusion that hammers home big impacts.
+Please create my daily AI research briefing for {date}. Research the latest developments and deliver a prioritized summary following the methodology and scoring criteria above. Deliver the result in a 1-2 page memo that starts with a brief summary paragraph and has a conclusion that hammers home big impacts.
+
+CRITICAL OUTPUT INSTRUCTION: Your response must contain ONLY the final briefing document. Do not include:
+- Search queries you're running
+- Narration of your research process ("Let me search for...", "Now I'll look at...")
+- Methodology explanations or planning
+- Apologies or limitation notices about search results
+- Questions asking for clarification
+
+Start your response directly with "# AI Research Briefing - {date}" and provide the best briefing you can with available information. If information is limited, simply note it briefly in the Research Coverage section at the end, but still deliver a complete briefing structure.
 
 Some final instructions:
 * It’s okay if something unimportant gets skipped or no major innovation came out recently. I’m focused on highly relevant industry signals, which tend to vary day by day.
