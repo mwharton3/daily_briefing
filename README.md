@@ -76,7 +76,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # Or via pip: pip install uv
 
 # Install Python dependencies
-uv pip install -e ".[dev]"
+uv pip install -e .
 
 # Install AWS CDK CLI (if not already installed)
 npm install -g aws-cdk
