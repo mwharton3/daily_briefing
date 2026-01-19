@@ -59,19 +59,19 @@ class DailyBriefingStack(Stack):
             )
         )
 
-        # Create EventBridge rule to trigger daily at 8 AM UTC
-        # Adjust the schedule expression as needed
+        # Create EventBridge rule to trigger daily at 5 AM Central time (11 AM UTC)
+        # Note: During daylight saving time (CDT), this will be 6 AM local time
         rule = events.Rule(
             self,
             "DailyBriefingSchedule",
             schedule=events.Schedule.cron(
                 minute="0",
-                hour="8",  # 8 AM UTC - adjust for your timezone
+                hour="11",  # 11 AM UTC = 5 AM CST (6 AM CDT)
                 month="*",
                 week_day="*",
                 year="*"
             ),
-            description="Triggers daily briefing generation every day at 8 AM UTC",
+            description="Triggers daily briefing generation every day at 5 AM Central time",
         )
 
         # Add Lambda as target
