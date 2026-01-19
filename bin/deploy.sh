@@ -73,7 +73,9 @@ fi
 # Install Python dependencies for Lambda
 echo -e "${YELLOW}Installing Lambda dependencies...${NC}"
 # Install only runtime dependencies (not dev dependencies) to lambda directory
-uv pip install anthropic boto3 -t lambda/ --upgrade
+# Use pip with --platform to get Linux x86_64 binaries compatible with Lambda
+pip install anthropic boto3 markdown --target lambda/ --upgrade \
+    --platform manylinux2014_x86_64 --python-version 3.12 --only-binary=:all:
 
 echo -e "${GREEN}✓ Dependencies installed${NC}"
 
@@ -83,17 +85,13 @@ cdk bootstrap 2>&1 | grep -v "already bootstrapped" || true
 
 # Synthesize CDK stack
 echo -e "${YELLOW}Synthesizing CDK stack...${NC}"
-cd infrastructure
 cdk synth
-cd ..
 
 echo -e "${GREEN}✓ CDK stack synthesized${NC}"
 
 # Deploy CDK stack
 echo -e "${YELLOW}Deploying CDK stack...${NC}"
-cd infrastructure
 cdk deploy --require-approval never
-cd ..
 
 echo ""
 echo -e "${GREEN}========================================${NC}"
