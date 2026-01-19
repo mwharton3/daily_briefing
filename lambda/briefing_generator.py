@@ -15,7 +15,7 @@ class BriefingGenerator:
             raise ValueError("ANTHROPIC_API_KEY environment variable is required")
 
         self.client = anthropic.Anthropic(api_key=self.api_key)
-        self.model = "claude-opus-4-20250514"
+        self.model = "claude-sonnet-4-5-20250929"
 
         # Set default prompt file location
         if prompt_file is None:
