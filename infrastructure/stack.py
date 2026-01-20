@@ -37,7 +37,7 @@ class DailyBriefingStack(Stack):
             runtime=lambda_.Runtime.PYTHON_3_12,
             handler="handler.handler",
             code=lambda_.Code.from_asset("lambda"),
-            timeout=Duration.minutes(15),
+            timeout=Duration.minutes(5),
             memory_size=512,
             environment={
                 "ANTHROPIC_API_KEY": anthropic_api_key,
