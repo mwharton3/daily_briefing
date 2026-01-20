@@ -4,12 +4,17 @@ An AWS Lambda function that generates personalized daily briefings using Claude 
 
 ## Features
 
-- **AI-Powered Briefings**: Uses Claude Opus 4.5 with extended thinking for deep, thoughtful daily insights
-- **Automated Scheduling**: Runs automatically every day at 8 AM UTC via AWS EventBridge
+- **AI-Powered Briefings**: Uses Claude Sonnet 4.5 with extended thinking for deep, thoughtful daily insights
+- **Automated Scheduling**: Runs automatically every day at 5 AM CT via AWS EventBridge
 - **Email Delivery**: Sends beautifully formatted HTML emails via AWS SES
 - **Infrastructure as Code**: Complete AWS infrastructure defined using AWS CDK
 - **Comprehensive Testing**: Unit tests with mocking for local development
 - **Easy Deployment**: Simple shell scripts for deployment and manual triggers
+
+## Prompt adjustment
+If you'd like to use for your own use case, fork this repository, change the prompt in `lambda/prompt.md`, and then follow the below instructions.
+
+If you want the same prompt as-is, you can still clone a copy and just use your own AWS credentials/etc.
 
 ## Architecture
 
@@ -97,7 +102,7 @@ cp .env.example .env
 
 ### 3. Verify Sender Email in AWS SES
 
-Before deploying, you need to verify your sender email in AWS SES:
+Before deploying, you need to verify your sender email in AWS SES (see below). Note that I created a new alias using my email provider (`noreply@mydomain.com`), which I was able to authenticate and use even in SES sandbox mode. YMMV.
 
 ```bash
 # Verify your sender email
@@ -115,8 +120,8 @@ Check your email and click the verification link sent by AWS.
 ### 4. Configure AWS Credentials
 
 ```bash
-# Configure AWS CLI with your credentials
-aws configure
+# Authenticate your AWS account using web browser
+aws login
 
 # Or set environment variables
 export AWS_ACCESS_KEY_ID=your-access-key
