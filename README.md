@@ -22,7 +22,7 @@ If you want the same prompt as-is, you can still clone a copy and just use your 
 
 ```
 ┌─────────────────┐
-│  EventBridge    │  ← Daily schedule (8 AM UTC)
+│  EventBridge    │  ← Daily schedule (5 AM CT)
 │  (Cron Rule)    │
 └────────┬────────┘
          │
