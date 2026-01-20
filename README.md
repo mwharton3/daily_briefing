@@ -1,6 +1,8 @@
 # Daily Briefing Generator
 
-An AWS Lambda function that generates personalized daily briefings using Claude Opus 4.5 with extended thinking and emails them automatically.
+An AWS Lambda function that generates personalized daily briefings using Claude Sonnet 4.5 with extended thinking and emails them automatically.
+
+Note that you can do the same exact thing in a no-code interface with ChatGPT Tasks, however, I wanted to both learn by creating and have a bit more control. If you're looking for a simple way to achieve virtually the same goal, I'd recommend using Tasks instead.
 
 ## Features
 
