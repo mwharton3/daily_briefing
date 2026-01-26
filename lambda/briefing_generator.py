@@ -71,10 +71,16 @@ class BriefingGenerator:
                 messages=[{
                     "role": "user",
                     "content": prompt
+                }],
+                tools=[{
+                    "type": "web_search_20250305",
+                    "name": "web_search",
+                    "max_uses": 20  # Allow multiple searches for comprehensive research
                 }]
             )
 
-            # Extract the text content (skip thinking blocks)
+            # Extract the text content (skip thinking blocks and tool use blocks)
+            # Only include the final text response, not intermediate tool use announcements
             briefing_content = ""
             thinking_content = ""
 
@@ -82,7 +88,49 @@ class BriefingGenerator:
                 if block.type == "thinking":
                     thinking_content = block.thinking
                 elif block.type == "text":
-                    briefing_content += block.text
+                    briefing_content += block.text + "\n"
+                # Skip server_tool_use and web_search_tool_result blocks - these are intermediate steps
+            
+            # Find the start of the actual briefing (should start with "# AI Research Briefing")
+            # This ensures we skip any process narration that might appear before the briefing
+            briefing_start_marker = "# AI Research Briefing"
+            if briefing_start_marker in briefing_content:
+                start_idx = briefing_content.find(briefing_start_marker)
+                briefing_content = briefing_content[start_idx:]
+            
+            # Additional cleanup: remove any remaining process narration patterns
+            lines = briefing_content.split('\n')
+            filtered_lines = []
+            skip_until_heading = False
+            
+            for i, line in enumerate(lines):
+                line_lower = line.lower().strip()
+                
+                # If we find obvious process narration, skip until we hit a heading
+                if any(phrase in line_lower for phrase in [
+                    "research phase", "information gathering", "let me conduct",
+                    "i'll conduct a comprehensive", "let me start by executing"
+                ]):
+                    skip_until_heading = True
+                    continue
+                
+                # If we're skipping, only include headings (they mark the start of real content)
+                if skip_until_heading:
+                    if line.strip().startswith('#'):
+                        skip_until_heading = False
+                        filtered_lines.append(line)
+                    continue
+                
+                # Skip other obvious process narration lines (but keep headings)
+                if any(phrase in line_lower for phrase in [
+                    "let me search", "i'll search", "now let me", "let me fetch",
+                    "executing searches", "searching for", "let me look"
+                ]) and not line.strip().startswith('#'):
+                    continue
+                
+                filtered_lines.append(line)
+            
+            briefing_content = '\n'.join(filtered_lines).strip()
 
             return {
                 "date": today,
