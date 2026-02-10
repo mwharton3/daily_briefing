@@ -16,34 +16,57 @@ Start your response IMMEDIATELY with "# AI Research Briefing - {date}" and provi
 ## RESEARCH METHODOLOGY
 
 **Phase 1: Information Gathering**
-Use web search extensively to find recent AI developments from the past 24 hours. Search multiple times with varied queries to ensure comprehensive coverage. CRITICAL: Always include current date ({date}) in searches to ensure you get the latest information, not outdated content.
+Use web search extensively to find recent AI developments. **CRITICAL DATE FILTERING**: You must search for and include TWO DISTINCT TIME PERIODS:
 
-Primary search queries to execute (ALWAYS include {date} or "January 2026" or similar current date references):
-- "AI machine learning research" + {date} OR "January 2026"
-- "computer vision papers" + "January 2026" OR "recent January 2026"
-- "ML production deployment" + "latest January 2026"
-- "document AI OCR" + "new January 2026"
-- "model efficiency training" + "January 2026"
-- "remote sensing deep learning" + "latest January 2026"
-- "MLOps tools" + "new release January 2026"
-- Specific venue searches with dates: "NeurIPS 2024", "MLSys 2024", recent "ICML", "CVPR 2024"
-- Lab/author searches with current dates: "Andrej Karpathy January 2026", major AI labs (OpenAI, Anthropic, Google DeepMind, Meta AI, etc.) + "January 2026"
-- Infrastructure with dates: "PyTorch release January 2026", "AWS SageMaker updates January 2026", "MLflow January 2026", "Weights & Biases January 2026"
-- Always verify model versions are current: search for "Claude 4.5" or "latest Claude" to ensure you're not reporting on outdated versions
+1. **Last 24 Hours** (published within the last day from {date})
+2. **Last Week** (published in the last 7 days from {date}, excluding what's already in the 24-hour section)
+
+**RECENCY ENFORCEMENT**: This is CRITICAL to avoid duplicate content day-over-day:
+- Always include EXACT dates in your searches (e.g., "published February 10 2026", "announced February 9 2026")
+- Verify the publication date of EVERY item before including it
+- If you cannot confirm a publication date within the target range, DO NOT include the item
+- Prioritize items with timestamps, publication dates, or "posted X hours ago" indicators
+- When using web_fetch to read full articles, check for date metadata at the top or bottom
+- Filter out any content older than the specified time window for each section
+
+Primary search queries to execute for LAST 24 HOURS (ALWAYS include {date} or specific yesterday's date):
+- "AI machine learning research published" + {date}
+- "computer vision papers" + {date} + "posted today"
+- "ML production deployment announced" + {date}
+- "document AI OCR released" + {date}
+- "model efficiency training" + {date} + "published today"
+- "remote sensing deep learning" + {date} + "latest"
+- "MLOps tools" + {date} + "new release"
+- Specific venue searches: check for new papers from ongoing conferences
+- Lab/author searches: "Andrej Karpathy" + {date}, major AI labs (OpenAI, Anthropic, Google DeepMind, Meta AI) + {date} + "announcement"
+- Infrastructure: "PyTorch" + {date}, "AWS SageMaker" + {date}, "MLflow" + {date}
+
+Primary search queries to execute for LAST WEEK (include date range for past 7 days):
+- "AI machine learning research" + "last week" + "published"
+- "computer vision papers" + "past 7 days"
+- "ML production deployment" + "this week"
+- "document AI OCR" + "recent" + "this week"
+- Weekly roundups: "AI weekly" + {date}, "ML news this week"
+- Conference proceedings from the past week
+- Major lab releases from the past 7 days
 
 Search strategy:
-1. Start with 5-7 broad searches to map the landscape
-2. When you find a promising development, do a follow-up search to find additional sources and validation
-3. Search for both research papers (arXiv, conferences) AND practical implementations (blog posts, GitHub releases, production case studies)
-4. Look for social media discussion and validation signals (HN discussions, Twitter/X threads from practitioners)
-5. Continue searching until you have 15-20 candidate items to score
+1. Start with 5-7 broad searches to map the landscape FOR EACH TIME PERIOD
+2. When you find a promising development, VERIFY THE PUBLICATION DATE using web_fetch
+3. Do a follow-up search to find additional sources and validation ONLY IF the date is within range
+4. Search for both research papers (arXiv, conferences) AND practical implementations (blog posts, GitHub releases, production case studies)
+5. Look for social media discussion and validation signals (HN discussions, Twitter/X threads from practitioners)
+6. Continue searching until you have 15-20 candidate items to score ACROSS BOTH TIME PERIODS
+7. **MANDATORY**: Reject any item where you cannot verify the publication date falls within the target range
 
 **Phase 2: Content Validation**
 For each promising item found:
-- Use web_fetch to read the full content when available
+- **VERIFY PUBLICATION DATE FIRST**: Use web_fetch to read the full content and confirm the publication/announcement date
+- **MANDATORY**: Extract and record the source URL - every item in the final briefing MUST include a direct link
 - Look for validation signals: GitHub stars, social media engagement, reproducibility evidence
 - Check if code is available and assess quality (avoid "research code" red flags)
 - Identify whether this is original reporting or derivative coverage
+- Discard items where publication date cannot be confirmed or falls outside the target time window
 
 **Phase 3: Duplicate Detection**
 - Track items that are reporting on the same underlying development
@@ -93,23 +116,53 @@ Deliver a daily briefing structured as follows:
 
 # AI Research Briefing - [Date]
 
-## High Priority (Score 9-10) - Read Today
-[For each item scoring 9-10:]
-**[Title with link]**
+## Last 24 Hours (Published within the last day)
+
+### High Priority (Score 9-10) - Read Today
+[For each item scoring 9-10 from the last 24 hours:]
+**[Title]**
+- **Link:** [Direct URL to source - REQUIRED]
+- **Published:** [Exact date/time if available]
 - **Score:** [X/10]
 - **Why it matters:** [2-3 sentences on practical implications for KUNGFU.AI]
 - **Action:** [What to do with this - implement, advise clients, monitor, etc.]
 - **Source validation:** [Evidence of quality: GitHub stars, author credibility, social proof]
 
-## Medium Priority (Score 7-8) - Review This Week
-[For each item scoring 7-8:]
-**[Title with link]**
+### Medium Priority (Score 7-8) - Review This Week
+[For each item scoring 7-8 from the last 24 hours:]
+**[Title]**
+- **Link:** [Direct URL to source - REQUIRED]
+- **Published:** [Exact date/time if available]
 - **Score:** [X/10]  
 - **Key insight:** [1-2 sentences]
 - **Relevance:** [Why it made the cut]
 
-## On the Radar (Score 5-6) - Context Only
-[Brief bullets for notable items that didn't make the cut but provide useful context]
+### On the Radar (Score 5-6) - Context Only
+[Brief bullets for notable items from last 24 hours that didn't make the cut but provide useful context]
+- **[Title]** ([Link - REQUIRED]) - [One sentence summary]
+
+## Last Week (Published in the past 7 days, excluding above)
+
+### High Priority (Score 9-10)
+[For each item scoring 9-10 from the last week:]
+**[Title]**
+- **Link:** [Direct URL to source - REQUIRED]
+- **Published:** [Date]
+- **Score:** [X/10]
+- **Why it matters:** [2-3 sentences on practical implications]
+- **Action:** [What to do with this]
+
+### Medium Priority (Score 7-8)
+[For each item scoring 7-8 from the last week:]
+**[Title]**
+- **Link:** [Direct URL to source - REQUIRED]
+- **Published:** [Date]
+- **Score:** [X/10]  
+- **Key insight:** [1-2 sentences]
+
+### Notable Developments (Score 5-6)
+[Brief bullets for items from last week]
+- **[Title]** ([Link - REQUIRED]) - [One sentence summary]
 
 ## Filtered Out
 [One sentence summary of major categories filtered: "Filtered 8 marginal foundation model benchmarks, 5 B2C product launches, 3 prompt engineering tips"]
@@ -117,16 +170,23 @@ Deliver a daily briefing structured as follows:
 ---
 
 **Research Coverage:** [X searches performed, Y unique items evaluated, Z sources consulted]
-**Time Period:** [Confirm date range of content, typically last 24 hours]
+**Time Period Coverage:** 
+- Last 24 hours: [Date range with number of items found]
+- Last week: [Date range with number of items found]
+**Date Verification:** [Confirm all items have verified publication dates within their respective time windows]
 
 ## QUALITY CONTROLS
 
-- Minimum 15 unique developments evaluated before scoring
+- Minimum 15 unique developments evaluated before scoring (across both time periods)
 - At least 3-5 items in final briefing (even if scores are modest)
+- **MANDATORY**: Every item MUST include a direct source link (URL) - no exceptions
+- **MANDATORY**: Every item MUST have a verified publication date within its time window (last 24 hours OR last week)
 - Never include items without links to original sources
 - Be honest about limitations: if searches yield limited results, say so
 - Prioritize novelty: if today's developments are incremental, acknowledge it rather than forcing significance
 - Always include direct URLs - no "search for X" suggestions
+- If an item appears in multiple time windows, include it only in the most recent applicable section
+- Reject items where publication date cannot be verified or is outside the time window
 
 ## TONE & STYLE
 
@@ -136,7 +196,7 @@ Deliver a daily briefing structured as follows:
 - Be opinionated but evidence-based
 - Call out hype directly when present
 
-Please create my daily AI research briefing for {date}. Research the latest developments and deliver a prioritized summary following the methodology and scoring criteria above. Deliver the result in a 1-2 page memo that starts with a brief summary paragraph and has a conclusion that hammers home big impacts.
+Please create my daily AI research briefing for {date}. Research the latest developments from BOTH the last 24 hours AND the last week, verify publication dates for each item, and deliver a prioritized summary following the methodology and scoring criteria above. Every item in the briefing MUST include a direct source link. Deliver the result in a 1-2 page memo that starts with a brief summary paragraph and has a conclusion that hammers home big impacts.
 
 ⚠️ **ABSOLUTE REQUIREMENT - READ THIS CAREFULLY** ⚠️
 
